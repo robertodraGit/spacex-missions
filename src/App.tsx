@@ -1,10 +1,15 @@
+import { MissionFilter } from "components/MissionFilter";
 import { MissionList } from "pages/MissionList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { baseURL, years } from "utils/constants";
 
 function App() {
   const [toFetch, setToFetch] = useState(baseURL);
+
+  const setURLHandler = (string: string) => {    
+    setToFetch((prev) => prev + string)
+  }
 
   const { isLoading, data } = useQuery("missions", () =>
     fetch(toFetch)
@@ -15,9 +20,7 @@ function App() {
     <div className="container">
       <h1>SpaceX Launch Programs</h1>
       <div className="row">
-        <aside className="filter-column col-3">
-          <h1>Filter Space</h1>
-        </aside>
+        <MissionFilter baseURL={toFetch} years={years} setURL={setURLHandler} />
         <MissionList data={data} isLoading={isLoading} />
       </div>
     </div>
