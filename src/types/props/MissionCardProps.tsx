@@ -1,4 +1,4 @@
-export type CardProps = {
+export type MissionCardProps = {
     src: string,
     missionLink: string,
     missionName: string,

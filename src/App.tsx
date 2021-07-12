@@ -1,23 +1,28 @@
-import { CardWrapper } from "pages/CardWrapper";
-import { QueryClient, QueryClientProvider } from "react-query";
-
-const baseURL = 'https://api.spacexdata.com/v3/launches?limit=100';
-const queryClient = new QueryClient();
+import { MissionList } from "pages/MissionList";
+import { useState } from "react";
+import { useQuery } from "react-query";
+import { baseURL, years } from "utils/constants";
 
 function App() {
-  return (
-    <div className="container-fluid">
-      <h1>SpaceX Launch Programs</h1>
-      <aside className="filter-column">
+  const [toFetch, setToFetch] = useState(baseURL);
 
-      </aside>
-      <aside className="card-wrapper">
-        <QueryClientProvider client={queryClient}>
-          <CardWrapper toFetch={baseURL} />
-        </QueryClientProvider>
-      </aside>
+  const { isLoading, data } = useQuery("missions", () =>
+    fetch(toFetch)
+      .then((res) => res.json())
+  );
+
+  return (
+    <div className="container">
+      <h1>SpaceX Launch Programs</h1>
+      <div className="row">
+        <aside className="filter-column col-3">
+          <h1>Filter Space</h1>
+        </aside>
+        <MissionList data={data} isLoading={isLoading} />
+      </div>
     </div>
   );
 }
 
-export default App;
+// export default withQueryClient(App);
+export default App

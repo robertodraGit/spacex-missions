@@ -1,9 +1,14 @@
 .card-mission {
-    padding: 10px;
+    padding: 15px;
     display: flex;
     flex-direction: column;
-    width: 220px;
+    width: 240px;
+    min-height: 400px;
+    margin-bottom: 20px;
+
     img {
+        margin-bottom: 10px;
+        padding: 20px;
         background-color: rgb(243, 243, 243);
     }
 }
