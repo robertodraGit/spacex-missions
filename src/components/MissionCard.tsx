@@ -11,11 +11,13 @@ export const MissionCard: FC<CardProps> = ({ src, missionName, missionLink, flig
 
             <span><strong>Mission IDs:</strong></span>
             {
-                missionIds ? (
+                missionIds.length !== 0 ? (
                     <ul>
-                        {missionIds.map(id => (
-                            <li> {id} </li>
-                        ))}
+                        {
+                            missionIds.map(id => (
+                                <li> {id} </li>
+                            ))
+                        }
                     </ul>
 
                 )

@@ -1,4 +1,8 @@
-import { MissionCard } from "components/MissionCard";
+import { CardWrapper } from "pages/CardWrapper";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const baseURL = 'https://api.spacexdata.com/v3/launches?limit=100';
+const queryClient = new QueryClient();
 
 function App() {
   return (
@@ -8,7 +12,9 @@ function App() {
 
       </aside>
       <aside className="card-wrapper">
-        
+        <QueryClientProvider client={queryClient}>
+          <CardWrapper toFetch={baseURL} />
+        </QueryClientProvider>
       </aside>
     </div>
   );

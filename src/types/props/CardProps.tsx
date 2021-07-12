@@ -6,5 +6,5 @@ export type CardProps = {
     launchYear: number,
     launchSuccess: boolean,
     launchLanding: boolean,
-    missionIds?: string[],
+    missionIds: string[],
 }
