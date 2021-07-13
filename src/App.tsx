@@ -1,10 +1,10 @@
-import { MissionFilter } from "components/MissionFilter";
-import { withQueryClient } from "hocs/with-query-client";
-import { MissionList } from "pages/MissionList";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQuery } from "react-query";
-import { FilterObjectProps } from "types/props/FilterObjectProps";
 import { baseURL, years } from "utils/constants";
+import { FilterObjectProps } from "types/props/FilterObjectProps";
+import { withQueryClient } from "hocs/with-query-client";
+import { MissionFilter } from "components/MissionFilter";
+import { MissionList } from "pages/MissionList";
 
 function App() {
   const [query, setQuery] = useState({}); 
@@ -19,7 +19,7 @@ function App() {
     );
     return { isLoading, data }
   }
-  
+
   const { isLoading, data } = MissionFetch(baseURL, query)
 
   return (
