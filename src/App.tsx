@@ -15,11 +15,11 @@ function App() {
     const url = new URL(base);
     Object.entries(filter).forEach(([key, value]) => url.searchParams.set(key, `${value}`));
 
-    return url.href
+    return url
   }
 
   async function fetchMissions() {
-    const res = await fetch(missionQuery(baseURL, query));
+    const res = await fetch(missionQuery(baseURL, query).href);
     setLoading(true);
 
     const dataFetch = await res.json();
@@ -31,6 +31,7 @@ function App() {
 
   useEffect(() => {
     refetch();
+    window.history.pushState("", "", missionQuery(baseURL, query).search)
   }, [query, refetch])
 
   return (

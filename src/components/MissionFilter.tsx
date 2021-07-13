@@ -1,9 +1,9 @@
-import { Button } from "atoms/Button";
 import { FC, useEffect, useState } from "react"
 import { MissionFilterProps } from "types/props/MissionFilterProps"
 
 export const MissionFilter: FC<MissionFilterProps> = ({ years, setURL }) => {
     const [objectQuery, setObjectQuery] = useState({});
+    const [clic, setClic] = useState(false);
 
     const handleClick = (value: number | boolean, event: React.MouseEvent) => {
         const dataset = event.currentTarget.getAttribute("data-filter");
@@ -28,43 +28,39 @@ export const MissionFilter: FC<MissionFilterProps> = ({ years, setURL }) => {
             <ul>
                 {years.map((year, index) =>
                     <li key={index}>
-                        <Button clicked={false}
-                            data-filter='launch_year'
-                            onClick={e => handleClick(year, e)}
+                        <button data-filter='launch_year'
+                            onClick={e => {setClic(prev => !prev); return handleClick(year, e)}}
+                            className={`${clic ? 'btn-clicked' : ''}`}
                         >
                             {year}
-                        </Button>
+                        </button>
                     </li>
                 )}
             </ul>
             <p>Succesfull Launch</p>
             <ul>
                 <li>
-                    <Button clicked={false}
-                        data-filter='launch_success'
+                    <button data-filter='launch_success'
                         onClick={e => handleClick(true, e)}
-                    >True</Button>
+                    >True</button>
                 </li>
                 <li>
-                    <Button clicked={false}
-                        data-filter='launch_success'
+                    <button data-filter='launch_success'
                         onClick={e => handleClick(false, e)}
-                    >False</Button>
+                    >False</button>
                 </li>
             </ul>
             <p>Succesfull Landing</p>
             <ul>
                 <li>
-                    <Button clicked={false}
-                        data-filter='land_success'
+                    <button data-filter='land_success'
                         onClick={e => handleClick(true, e)}
-                    >True</Button>
+                    >True</button>
                 </li>
                 <li>
-                    <Button clicked={false}
-                        data-filter='land_success'
+                    <button data-filter='land_success'
                         onClick={e => handleClick(false, e)}
-                    >False</Button>
+                    >False</button>
                 </li>
             </ul>
         </aside>
