@@ -19,7 +19,7 @@ export const MissionFilter: FC<MissionFilterProps> = ({ years, setURL }) => {
 
     useEffect(() => {
         setURL(objectQuery)
-    }, [objectQuery])
+    }, [objectQuery, setURL])
 
     return (
         <aside className="filter-column col-3">

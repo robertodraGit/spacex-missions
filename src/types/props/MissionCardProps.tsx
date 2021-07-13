@@ -3,7 +3,7 @@ export type MissionCardProps = {
     missionLink: string,
     missionName: string,
     flightNumber: number,
-    launchYear: number,
+    launchYear: string,
     launchSuccess: boolean,
     launchLanding: boolean,
     missionIds: string[],

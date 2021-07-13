@@ -2,7 +2,7 @@ export type MissionModel = {
     flight_number: number,
     mission_name: string,
     mission_id: string[],
-    launch_year: number,
+    launch_year: string,
     rocket: {
       first_stage: {
         cores: [
