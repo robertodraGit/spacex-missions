@@ -5,6 +5,7 @@ import { MissionCard } from "components/MissionCard";
 
 export const MissionList: FC<MissionListProps> = ({ data, isLoading }) => {
     if (isLoading === true) return <main className="card-wrapper col-9">Loading...</main>
+    if(data.length === 0) return <main className="card-wrapper col-9">No missions!</main>
     return (
         <main className="card-wrapper col-9">
             {data.map((mission: MissionModel, index: number) => (

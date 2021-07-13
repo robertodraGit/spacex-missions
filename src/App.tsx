@@ -3,33 +3,30 @@ import { withQueryClient } from "hocs/with-query-client";
 import { MissionList } from "pages/MissionList";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
+import { FilterObjectProps } from "types/props/FilterObjectProps";
 import { baseURL, years } from "utils/constants";
 
 function App() {
-  const [toFetch, setToFetch] = useState(baseURL);
+  const [query, setQuery] = useState({}); 
 
-  const setURLHandler = (string: string) => {    
-    setToFetch((prev) => prev + string)
+  const MissionFetch = (base: string, filter: FilterObjectProps) => {
+    const url = new URL(base);
+    Object.entries(filter).forEach(([key, value]) => url.searchParams.set(key, `${value}`));    
+
+    const { isLoading, data } = useQuery("missions", () =>
+      fetch(url.href)
+        .then((res) => res.json())
+    );
+    return { isLoading, data }
   }
-
-  const URL = new URLSearchParams(baseURL)
-
-  const filters = {page: 2, year: 2012}
-
-  Object.entries(filters).forEach(([key, value]) => URL.set(key, `${value}`))
-  console.log(URL.toString());
   
-
-  const { isLoading, data } = useQuery("missions", () =>
-    fetch(toFetch)
-      .then((res) => res.json())
-  );
+  const { isLoading, data } = MissionFetch(baseURL, query)
 
   return (
     <div className="container">
       <h1>SpaceX Launch Programs</h1>
       <div className="row">
-        <MissionFilter baseURL={toFetch} years={years} setURL={setURLHandler} />
+        <MissionFilter years={years} setURL={setQuery} />
         <MissionList data={data} isLoading={isLoading} />
       </div>
     </div>
