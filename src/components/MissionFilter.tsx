@@ -1,19 +1,15 @@
 import { FC, useEffect, useState } from "react"
 import { MissionFilterProps } from "types/props/MissionFilterProps"
 
-export const MissionFilter: FC<MissionFilterProps> = ({ years, setURL }) => {
+export const MissionFilter: FC<MissionFilterProps> = ({ years, currentQueries, setURL }) => {
     const [objectQuery, setObjectQuery] = useState({});
-    const [clic, setClic] = useState(false);
 
-    const handleClick = (value: number | boolean, event: React.MouseEvent) => {
-        const dataset = event.currentTarget.getAttribute("data-filter");
-
+    const handleClick = (value: string, key: string) => {
         setObjectQuery(prevState => {
-            if (dataset)
-                return {
-                    ...prevState,
-                    [dataset]: value,
-                }
+            return {
+                ...prevState,
+                [key]: value,
+            }
         })
     }
 
@@ -28,9 +24,8 @@ export const MissionFilter: FC<MissionFilterProps> = ({ years, setURL }) => {
             <ul>
                 {years.map((year, index) =>
                     <li key={index}>
-                        <button data-filter='launch_year'
-                            onClick={e => {setClic(prev => !prev); return handleClick(year, e)}}
-                            className={`${clic ? 'btn-clicked' : ''}`}
+                        <button onClick={() => { handleClick(`${year}`, 'launch_year') }}
+                            className={`${currentQueries['launch_year'] === `${year}` ? 'btn-clicked' : ''}`}
                         >
                             {year}
                         </button>
@@ -40,26 +35,30 @@ export const MissionFilter: FC<MissionFilterProps> = ({ years, setURL }) => {
             <p>Succesfull Launch</p>
             <ul>
                 <li>
-                    <button data-filter='launch_success'
-                        onClick={e => handleClick(true, e)}
+                    <button
+                        onClick={() => handleClick('true', 'launch_success')}
+                        className={`${currentQueries['launch_success'] === 'true' ? 'btn-clicked' : ''}`}
                     >True</button>
                 </li>
                 <li>
-                    <button data-filter='launch_success'
-                        onClick={e => handleClick(false, e)}
+                    <button
+                        onClick={() => handleClick("false", 'launch_success')}
+                        className={`${currentQueries['launch_success'] === 'false' ? 'btn-clicked' : ''}`}
                     >False</button>
                 </li>
             </ul>
             <p>Succesfull Landing</p>
             <ul>
                 <li>
-                    <button data-filter='land_success'
-                        onClick={e => handleClick(true, e)}
+                    <button
+                        onClick={() => handleClick("true", 'land_success')}
+                        className={`${currentQueries['land_success'] === 'true' ? 'btn-clicked' : ''}`}
                     >True</button>
                 </li>
                 <li>
-                    <button data-filter='land_success'
-                        onClick={e => handleClick(false, e)}
+                    <button
+                        onClick={() => handleClick("false", 'land_success')}
+                        className={`${currentQueries['land_success'] === 'false' ? 'btn-clicked' : ''}`}
                     >False</button>
                 </li>
             </ul>
